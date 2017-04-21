@@ -21,7 +21,7 @@ to the require section of your composer.json file.
 
 Make migration
 ```php
-php yii migrate --migrationPath=@vendor/dvizh/yii2-certificate/migrations/
+php yii migrate --migrationPath=@vendor/dvizh/yii2-certificate/src/migrations/
 ```
 
 ## Usage
