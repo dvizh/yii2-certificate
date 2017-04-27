@@ -6,7 +6,6 @@ use yii\grid\GridView;
 use kartik\select2\Select2;
 use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\search\CertificateCertificateSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Сертификаты';
@@ -14,7 +13,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="certificate-certificate-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
