@@ -13,19 +13,6 @@ use yii\filters\VerbFilter;
 
 class CertificateController extends Controller
 {
-
-
-    protected function getModelTitle($model)
-    {
-        $targetModelList = $this->module->targetModelList;
-        foreach ($targetModelList as $name => $targetModel) {
-            if ($targetModel['model'] == $model) {
-                return $name;
-            }
-        }
-        return false;
-    }
-
     public function behaviors()
     {
         return [
@@ -85,6 +72,7 @@ class CertificateController extends Controller
         }
         $model->owner_id = \Yii::$app->user->id;
         $model->created_at = date('Y-m-d H:i:s');
+
         if ($model->load(Yii::$app->request->post())) {
             if (strlen($model->date_elapsed) > 0) {
                 $model->date_elapsed = date('Y-m-d H:i:s', strtotime($model->date_elapsed));
@@ -94,13 +82,13 @@ class CertificateController extends Controller
 
             $targets = Yii::$app->request->post();
 
-
             $model->save();
+
             if (isset($targets['targetModels'])) {
                 $this->saveCertificateToModel($targets['targetModels'], $model->id);
             }
 
-            return $this->redirect('index');
+            return $this->redirect(['index']);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -198,7 +186,7 @@ class CertificateController extends Controller
                 $this->saveCertificateToModel($targets['targetModels'], $model->id, $certificateItems);
             }
 
-            return $this->redirect('index');
+            return $this->redirect(['index']);
 
         } else {
             return $this->render('update', [
@@ -214,7 +202,7 @@ class CertificateController extends Controller
     {
         $this->findModel($id)->delete();
 
-        return $this->redirect('index');
+        return $this->redirect(['index']);
     }
 
     protected function findModel($id)
@@ -242,9 +230,9 @@ class CertificateController extends Controller
                         $model->target_model = $productModel;
                         $model->target_id = $id;
                         $model->amount = $value;
-                        if ($model->validate() && $model->save()) {
+                        if ($model->validate()) {
                             // do nothing
-                        } else var_dump($model->getErrors());
+                        }
                     } else {
                         if ($model->amount != $value) {
                             $model->amount = $value;
@@ -255,7 +243,6 @@ class CertificateController extends Controller
             }
         }
     }
-
 
     public function actionAjaxDeleteTargetItem()
     {
@@ -282,4 +269,14 @@ class CertificateController extends Controller
 
     }
 
+    protected function getModelTitle($model)
+    {
+        $targetModelList = $this->module->targetModelList;
+        foreach ($targetModelList as $name => $targetModel) {
+            if ($targetModel['model'] == $model) {
+                return $name;
+            }
+        }
+        return false;
+    }
 }
