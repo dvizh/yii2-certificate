@@ -8,13 +8,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist dvizh/yii2-certificate "*"
+php composer.phar require --prefer-dist dvizh/yii2-certificate "@dev"
 ```
 
 or add
 
 ```
-"dvizh/yii2-certificate": "*"
+"dvizh/yii2-certificate": "@dev"
 ```
 
 to the require section of your composer.json file.
