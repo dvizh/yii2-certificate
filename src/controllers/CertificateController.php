@@ -230,7 +230,7 @@ class CertificateController extends Controller
                         $model->target_model = $productModel;
                         $model->target_id = $id;
                         $model->amount = $value;
-                        if ($model->validate()) {
+                        if ($model->validate() && $model->save()) {
                             // do nothing
                         }
                     } else {
